@@ -24,7 +24,7 @@ namespace AutotestFramework
   
         [SetUp]
         public void initialize()
-        {
+        { 
             NavigateTo.LoginFormThroughtTheMenuFirefox(driver);
         }
 
