@@ -13,15 +13,10 @@ namespace AutotestFramework
 
         static void Main()
         {
-
-
             //IWebElement element = driver.FindElement(By.Name(name));
-
             //Thread.Sleep(3000);
             //driver.Quit();
-
-        }
-  
+        } 
         [SetUp]
         public void initialize()
         { 

@@ -13,6 +13,7 @@ namespace AutotestFramework
             string LogingFormCssSelector = "article.mh-loop-item:nth-child(2) " +
                                            "> div:nth-child(2) > header:nth-child(1) " +
                                            "> h3:nth-child(1) > a:nth-child(1)";
+
             driver.FindElement(By.CssSelector(LogingFormCssSelector)).Click();
         }
         public static void LoginFormThroughtThePost()
