@@ -21,7 +21,7 @@
         [Test]
         public void LessThan5Chars()
         {
-            Thread.Sleep(1000);
+            Thread.Sleep(1000); // get rid of sleep 
             Actions.FillLoginForm(Config.Credentials.Valid.Username,
                 Config.Credentials.Invalid.Password.FourCharacters, 
                 Config.Credentials.Invalid.Password.FourCharacters);
