@@ -5,10 +5,14 @@
 
     public static class Actions
     {
-        public static void InitializeDriver()
+        public static void InitializeDriver(string baseUrl= null)
         {
             Driver.driver = new ChromeDriver();
-            Driver.driver.Navigate().GoToUrl(Config.BaseURL);
+            if(baseUrl == null)
+                Driver.driver.Navigate().GoToUrl(Config.BaseURL);
+            else
+                Driver.driver.Navigate().GoToUrl(baseUrl);
+
             Driver.WaitForElementUpTo(Config.ElementsWaitingTimeout);
         }
 
