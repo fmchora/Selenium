@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium;
 using NUnit.Framework;
+using System;
 
 namespace AutoFramework
 {
@@ -9,25 +10,33 @@ namespace AutoFramework
         [OneTimeSetUp]
         public void Initialize()
         {
-            Actions.InitializeDriver("https://www.google.com/");
+            //Actions.InitializeDriver("https://www.google.com/");
         }
 
         [TestCase]
         public void readFile()
         {
-            
+            ExcelClass excelFile = new ExcelClass(@"D:\TrabajoFolder\bulkUpload\ApprovalStatusOrg.xls", 1);
+            Console.WriteLine(excelFile.readCell(1,1));
+            excelFile.close();
+        }
+
+        [TestCase]
+        public void writeFile()
+        {
+
         }
 
         [TestCase]
         public void saveFile()
         {
-            
+             
         }
 
         [OneTimeTearDown]
         public void CleanUp()
         {
-            Driver.driver.Quit();
+           // Driver.driver.Quit();
         }
     }
 }

@@ -96,3 +96,4 @@ C:\Users\fmcho\OneDrive\Documents\Selenium\Selenium\AutoFramework\obj\Debug\Auto
 C:\Users\fmcho\OneDrive\Documents\Selenium\Selenium\AutoFramework\obj\Debug\AutoFramework.csproj.CopyComplete
 C:\Users\fmcho\OneDrive\Documents\Selenium\Selenium\AutoFramework\obj\Debug\AutoFramework.exe
 C:\Users\fmcho\OneDrive\Documents\Selenium\Selenium\AutoFramework\obj\Debug\AutoFramework.pdb
+C:\Users\fmcho\OneDrive\Documents\Selenium\Selenium\AutoFramework\obj\Debug\AutoFramework.csproj.ResolveComReference.cache
