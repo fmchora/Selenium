@@ -25,15 +25,29 @@ namespace AutoFramework
 
         public string readCell(int col, int row)
         {
-            if (worksheet.Cells[col, row].Value2 != null)
-                return worksheet.Cells[col, row].Value2;
+            if (worksheet.Cells[col, row].Value != null)
+                return worksheet.Cells[col, row].value.ToString();
             else
-                return "";
+                return null;
+        }
+
+        public int countIcelumsInRow(int row, int start = 1, int end = 50)
+        {
+            int count = 1;
+            for (int i = start; i <= end; i++)
+            {
+                if (readCell(row, i) != null)
+                    count++;
+                Console.WriteLine(readCell(i, row));
+            }
+            return count;
         }
 
         public void close()
         {
+            workbook.Save();
             workbook.Close();
+            excel.Quit();
         }
     }
 }
