@@ -62,8 +62,7 @@ namespace AutoFramework
              {
 
                 string data = readCell(i,2);
-                var test = batch.Single(b => b.Key.ToString().Equals(data));
-                writeCell(i, 3, test.Value);
+                writeCell(i, 3, batch.Single(b => b.Key.ToString().Equals(data)).Value.ToString());
                 Console.WriteLine(batch.Where(d => data.Equals(d.Value)).Count());
              }
 
@@ -81,7 +80,7 @@ namespace AutoFramework
         {
             Dictionary<string, string> dictionaryBatch = new Dictionary<string, string>()
             {
-            { "DUNS Number", "Felipe Test" },                          { "Organization Name *", "ZQXKXRANNSFMXAG" },{ "Country Code *", "US" },
+            { "DUNS Number", "Felipe t" },                          { "Organization Name *", "ZQXKXRANNSFMXAG" },{ "Country Code *", "US" },
             { "Address 1", " " },                            { "Address 2", " " },                        { "City", "Idaho" },
             { "State/Province Code", "ID" },                 { "Postal Code", "" },                       { "Category *", "SUP" },
             { "Contract Amount", "1000" },                   { "Internal Department", "FBI" },            { "Subsidiary/Parent", "Parent" },
