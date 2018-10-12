@@ -31,7 +31,7 @@ namespace AutoFramework
                 return null;
         }
 
-        public int countIcelumsInRow(int row, int start = 1, int end = 50)
+        public int getNumberOfColumnsInRow(int row, int start = 1, int end = 50)
         {
             int count = 1;
             for (int i = start; i <= end; i++)
@@ -43,7 +43,31 @@ namespace AutoFramework
             return count;
         }
 
-        public Dictionary<string, string> returnDictionary()
+        public void fillOutBatchFile()
+        {
+            Dictionary<string, string> batch = getDictionary();
+            //int totalNumberOfColumns = getNumberOfColumnsInRow(2);
+            // for (int i = 1; i < totalNumberOfColumns; i++)
+            // {
+
+                string data = readCell(2,1);
+            var test = batch.Single(b => b.Key.ToString().Equals(data));
+
+            Console.WriteLine(test);
+                Console.WriteLine(batch.Where(d => data.Equals(d.Value)).Count());
+            // }
+
+
+
+
+            //Dictionary<string, string> batch = getDictionary();
+            //string data = "ZQXKXRANNSFMXAG";
+            //int count = batch.Where(d => d.Value.Equals(data)).Count();
+            //Console.WriteLine(batch.Where(d => data.Equals(d.Value)).Count());
+        }
+
+
+        public Dictionary<string, string> getDictionary()
         {
             Dictionary<string, string> dictionaryBatch = new Dictionary<string, string>()
             {
@@ -68,7 +92,7 @@ namespace AutoFramework
 
         public void close()
         {
-            workbook.Save();
+            //workbook.Save();
             workbook.Close();
             excel.Quit();
         }
