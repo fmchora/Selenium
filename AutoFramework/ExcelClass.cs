@@ -42,7 +42,7 @@ namespace AutoFramework
         }
 
 
-        public int getNumberOfColumnsInRow(int row, int start = 1, int end = 50)
+        public int getNumberOfColumnsInRow(int row = 2, int start = 1, int end = 50)
         {
             int count = 1;
             for (int i = start; i <= end; i++)
@@ -54,25 +54,35 @@ namespace AutoFramework
             return count;
         }
 
-        public void fillOutBatchFile()
+        public void fillOutBatchFile(int row = 2, int howManyRows = 1)
         {
             Dictionary<string, string> batch = getDictionary();
-            int totalNumberOfColumns = getNumberOfColumnsInRow(2);
-             for (int i = 1; i < totalNumberOfColumns; i++)
-             {
+            string data = "";
+            int count = 1;
 
-                string data = readCell(i,2);
-                writeCell(i, 3, batch.Single(b => b.Key.ToString().Equals(data)).Value.ToString());
-                Console.WriteLine(batch.Where(d => data.Equals(d.Value)).Count());
-             }
+            int totalNumberOfColumns = getNumberOfColumnsInRow(row);
 
+            for (int rows = 1; rows <= howManyRows; rows++)
+            {
+                Guid id = Guid.NewGuid();
 
+                for (int i = 1; i < totalNumberOfColumns; i++)
+                {
 
+                    data = readCell(i, row);
+                    if (data.Equals("ID Number") || data.Equals("Organization Name *"))
+                    {
+                        writeCell(i, row + count, batch.Single(b => b.Key.ToString().Equals(data)).Value.ToString() + id);
+                    }
+                    else
+                    {
+                        writeCell(i, row + count, batch.Single(b => b.Key.ToString().Equals(data)).Value.ToString());
+                    }
+                    Console.WriteLine(batch.Where(d => data.Equals(d.Value)).Count());
+                }
+                count++;
+            }
 
-            //Dictionary<string, string> batch = getDictionary();
-            //string data = "ZQXKXRANNSFMXAG";
-            //int count = batch.Where(d => d.Value.Equals(data)).Count();
-            //Console.WriteLine(batch.Where(d => data.Equals(d.Value)).Count());
         }
 
 
@@ -80,7 +90,7 @@ namespace AutoFramework
         {
             Dictionary<string, string> dictionaryBatch = new Dictionary<string, string>()
             {
-            { "DUNS Number", "Felipe t" },                          { "Organization Name *", "ZQXKXRANNSFMXAG" },{ "Country Code *", "US" },
+            { "DUNS Number", "Felipe se la rifa" },          { "Organization Name *", "ZQXKXRANNSFMXAG" },{ "Country Code *", "US" },
             { "Address 1", " " },                            { "Address 2", " " },                        { "City", "Idaho" },
             { "State/Province Code", "ID" },                 { "Postal Code", "" },                       { "Category *", "SUP" },
             { "Contract Amount", "1000" },                   { "Internal Department", "FBI" },            { "Subsidiary/Parent", "Parent" },
@@ -94,7 +104,7 @@ namespace AutoFramework
             { "Contact Country Code", "US" },                { "Contact Address 1", "" },                 { "Contact Address 2", "" },
             { "Contact City", "" },                          { "Contact State/Province Code", "ID" },     { "Contact Postal Code", "" },
             { "Contact Language Code", "" },                 { "Third Party ID", "" },                    { "Owner Email *", "threepqa+level1@gmail.com" },
-            { "Approver Email", "" },                       {"Status", "Felipe y" }
+            { "Approver Email", "" },                       {"Status", "Charrly triston" }
             };
             return dictionaryBatch;
         }

@@ -20,7 +20,7 @@ namespace AutoFramework
             //Console.WriteLine(excelFile.readCell(1,3));
            // excelFile.writeCell(1,3,"felipe");
             //excelFile.getNumberOfColumnsInRow(2);
-            excelFile.fillOutBatchFile();
+            excelFile.fillOutBatchFile(2);
             excelFile.close();
         }
 
