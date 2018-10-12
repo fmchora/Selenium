@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +19,8 @@ namespace AutoFramework
 
         public ExcelClass(string path, int sheet)
         {
+            if (File.Exists(@"C:\Users\fmcho\OneDrive\Documents\ApprovalStatusOrg.xls"))
+                File.Delete(@"C:\Users\fmcho\OneDrive\Documents\ApprovalStatusOrg.xls");
             this.path = path;
             workbook = excel.Workbooks.Open(path);
             worksheet = workbook.Worksheets[sheet];
@@ -25,18 +28,26 @@ namespace AutoFramework
 
         public string readCell(int col, int row)
         {
-            if (worksheet.Cells[col, row].Value != null)
-                return worksheet.Cells[col, row].value.ToString();
+            if (worksheet.Cells[row, col].Value != null)
+                return worksheet.Cells[row, col].value.ToString();
             else
                 return null;
         }
+
+
+        public void  writeCell(int col, int row, string value)
+        {
+            worksheet.Cells[row, col].Value = value;
+
+        }
+
 
         public int getNumberOfColumnsInRow(int row, int start = 1, int end = 50)
         {
             int count = 1;
             for (int i = start; i <= end; i++)
             {
-                if (readCell(row, i) != null)
+                if (readCell(i, row) != null)
                     count++;
                 Console.WriteLine(readCell(i, row));
             }
@@ -46,16 +57,15 @@ namespace AutoFramework
         public void fillOutBatchFile()
         {
             Dictionary<string, string> batch = getDictionary();
-            //int totalNumberOfColumns = getNumberOfColumnsInRow(2);
-            // for (int i = 1; i < totalNumberOfColumns; i++)
-            // {
+            int totalNumberOfColumns = getNumberOfColumnsInRow(2);
+             for (int i = 1; i < totalNumberOfColumns; i++)
+             {
 
-                string data = readCell(2,1);
-            var test = batch.Single(b => b.Key.ToString().Equals(data));
-
-            Console.WriteLine(test);
+                string data = readCell(i,2);
+                var test = batch.Single(b => b.Key.ToString().Equals(data));
+                writeCell(i, 3, test.Value);
                 Console.WriteLine(batch.Where(d => data.Equals(d.Value)).Count());
-            // }
+             }
 
 
 
@@ -71,7 +81,7 @@ namespace AutoFramework
         {
             Dictionary<string, string> dictionaryBatch = new Dictionary<string, string>()
             {
-            { "DUNS Number", " " },                          { "Organization Name *", "ZQXKXRANNSFMXAG" },{ "Country Code *", "US" },
+            { "DUNS Number", "Felipe Test" },                          { "Organization Name *", "ZQXKXRANNSFMXAG" },{ "Country Code *", "US" },
             { "Address 1", " " },                            { "Address 2", " " },                        { "City", "Idaho" },
             { "State/Province Code", "ID" },                 { "Postal Code", "" },                       { "Category *", "SUP" },
             { "Contract Amount", "1000" },                   { "Internal Department", "FBI" },            { "Subsidiary/Parent", "Parent" },
@@ -85,14 +95,14 @@ namespace AutoFramework
             { "Contact Country Code", "US" },                { "Contact Address 1", "" },                 { "Contact Address 2", "" },
             { "Contact City", "" },                          { "Contact State/Province Code", "ID" },     { "Contact Postal Code", "" },
             { "Contact Language Code", "" },                 { "Third Party ID", "" },                    { "Owner Email *", "threepqa+level1@gmail.com" },
-            { "Approver Email", "" },                       {"Status", "" }
+            { "Approver Email", "" },                       {"Status", "Felipe y" }
             };
             return dictionaryBatch;
         }
 
         public void close()
         {
-            //workbook.Save();
+            workbook.SaveAs();
             workbook.Close();
             excel.Quit();
         }
