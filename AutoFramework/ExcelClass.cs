@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.Office.Interop.Excel;
 using _Excel = Microsoft.Office.Interop.Excel;
@@ -93,16 +94,33 @@ namespace AutoFramework
                 {
 
                     data = readCell(i, row);
+                    //data = data.Replace(" *","");
+
+                    try
+                    {
+                        Console.WriteLine(batch.Single(b => b.Key.ToString().Equals(data)).Key.ToString());
+                        string test = batch.Single(b => b.Key.ToString().Equals(data)).Key.ToString();
+                    }
+                    catch { }
+
                     if (!data.Equals(null))
                     {
                         if (data.Equals("ID Number") || data.Equals("Organization Name *"))
                         {
                             //writeCell(i, row + count, batch.Single(b => b.Key.ToString().Contains(data)).Value.ToString() + id);
                         }
-                        if( batch.Where(b => b.Key.ToString().Contains(data)).Count() != 0)
+                        else if (data.Equals("ID Number") || data.Equals("Organization Name *") || data.Equals("Category *")
+                            || data.Equals("Country Code *") || data.Equals("Branch/Division *") || data.Equals("Approval Status *")
+                            || data.Equals("Owner Email *") || data.Equals("Status"))
+                        {
+                            //writeCell(i, row + count, batch.Single(b => b.Key.ToString().Contains(data)).Value.ToString() + id);
+                        }
+                        else if (batch.Where(b => b.Key.ToString().Contains(data)).Count() != 0)
                         {
                             writeCell(i, row + count, batch.Single(b => b.Key.ToString().Contains(data)).Value.ToString());
                         }
+                        else
+                        { }
                     }
                     //Console.WriteLine(batch.Where(d => data.Equals(d.Value)).Count());
                 }
