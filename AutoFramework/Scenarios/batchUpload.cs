@@ -18,8 +18,9 @@ namespace AutoFramework
         {
             ExcelClass excelFile = new ExcelClass(@"D:\TrabajoFolder\bulkUpload\ApprovalStatusOrg.xls", 1);
             //Console.WriteLine(excelFile.readCell(1,3));
-           // excelFile.writeCell(1,3,"felipe");
+            //excelFile.writeCell(1,3,"felipe");
             //excelFile.getNumberOfColumnsInRow(2);
+            
             excelFile.fillOutBatchFile(2);
             excelFile.close();
         }

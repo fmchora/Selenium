@@ -15,6 +15,7 @@ namespace AutoFramework
         _Application excel = new _Excel.Application();
         Workbook workbook;
         Worksheet worksheet;
+        Worksheet worksheetVariables;
 
 
         public ExcelClass(string path, int sheet)
@@ -24,6 +25,27 @@ namespace AutoFramework
             this.path = path;
             workbook = excel.Workbooks.Open(path);
             worksheet = workbook.Worksheets[sheet];
+
+        }
+
+        public void selectWorkksheet(int sheet)
+        {
+            this.worksheet = workbook.Worksheets[sheet];
+        }
+
+
+        public Dictionary<string,string> getVariables(int sheet)
+        {
+            selectWorkksheet(sheet);
+            Dictionary<string, string> dictionary = new Dictionary<string, string>();
+            int totalNumberOfColumns = getNumberOfColumnsInRow(3);
+            for (int i = 2; i <= totalNumberOfColumns; i++)
+            {
+                if(readCell(i,3) != null)
+                dictionary.Add(readCell(i, 3), readCell(i,4));
+            }
+
+            return dictionary;
         }
 
         public string readCell(int col, int row)
@@ -38,7 +60,6 @@ namespace AutoFramework
         public void  writeCell(int col, int row, string value)
         {
             worksheet.Cells[row, col].Value = value;
-
         }
 
 
@@ -56,7 +77,9 @@ namespace AutoFramework
 
         public void fillOutBatchFile(int row = 2, int howManyRows = 1)
         {
-            Dictionary<string, string> batch = getDictionary();
+            
+            Dictionary<string, string> batch = getVariables(2);
+            selectWorkksheet(1);
             string data = "";
             int count = 1;
 
@@ -70,15 +93,18 @@ namespace AutoFramework
                 {
 
                     data = readCell(i, row);
-                    if (data.Equals("ID Number") || data.Equals("Organization Name *"))
+                    if (!data.Equals(null))
                     {
-                        writeCell(i, row + count, batch.Single(b => b.Key.ToString().Equals(data)).Value.ToString() + id);
+                        if (data.Equals("ID Number") || data.Equals("Organization Name *"))
+                        {
+                            //writeCell(i, row + count, batch.Single(b => b.Key.ToString().Contains(data)).Value.ToString() + id);
+                        }
+                        if( batch.Where(b => b.Key.ToString().Contains(data)).Count() != 0)
+                        {
+                            writeCell(i, row + count, batch.Single(b => b.Key.ToString().Contains(data)).Value.ToString());
+                        }
                     }
-                    else
-                    {
-                        writeCell(i, row + count, batch.Single(b => b.Key.ToString().Equals(data)).Value.ToString());
-                    }
-                    Console.WriteLine(batch.Where(d => data.Equals(d.Value)).Count());
+                    //Console.WriteLine(batch.Where(d => data.Equals(d.Value)).Count());
                 }
                 count++;
             }
