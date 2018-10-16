@@ -107,13 +107,16 @@ namespace AutoFramework
                     {
                         if (data.Equals("ID Number") || data.Equals("Organization Name *"))
                         {
-                            //writeCell(i, row + count, batch.Single(b => b.Key.ToString().Contains(data)).Value.ToString() + id);
+                            writeCell(i, row + count, id.ToString());
                         }
-                        else if (data.Equals("ID Number") || data.Equals("Organization Name *") || data.Equals("Category *")
-                            || data.Equals("Country Code *") || data.Equals("Branch/Division *") || data.Equals("Approval Status *")
-                            || data.Equals("Owner Email *") || data.Equals("Status"))
+                        else if (data.Equals("Category *") || data.Equals("Country Code *") || data.Equals("Branch/Division *") 
+                            || data.Equals("Approval Status *") || data.Equals("Status"))
                         {
-                            //writeCell(i, row + count, batch.Single(b => b.Key.ToString().Contains(data)).Value.ToString() + id);
+                            data = data.Replace(" *","");
+                            if (data.Equals("Status") || data.Equals("Approval Status") || data.Equals("Category") || data.Equals("Owner Email"))
+                            { }
+                            else
+                            writeCell(i, row + count, batch.Single(b => b.Key.ToString().Contains(data)).Value.ToString() + id);
                         }
                         else if (batch.Where(b => b.Key.ToString().Contains(data)).Count() != 0)
                         {
