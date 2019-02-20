@@ -61,7 +61,6 @@
     <Compile Include="Config.cs" />
     <Compile Include="Driver.cs" />
     <Compile Include="EntryPoint.cs" />
-    <Compile Include="ExcelClass.cs" />
     <Compile Include="NavigateTo.cs" />
     <Compile Include="Pages\HomePage.cs" />
     <Compile Include="Pages\LoginScenarioPost.cs" />
